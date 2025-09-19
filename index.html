@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSS Black Belt Exam Quiz</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // COMPLETE QUESTION DATASET - All 422 questions embedded
+        const QUESTIONS_DATA = [{"id":0,"question":"Which of the following tools should be used when a team is generating and prioritizing a list of options that include highly controversial issues?","options":["(A) Brainstorming","(B) Affinity diagrams","(C) Nominal group technique","(D) 5 whys"],"correctAnswer":"C","unit":"Unit III","chapter":"Chapter E","source":"ASQ sample exam","bokReference":"1 III.E. C"},{"id":1,"question":"The primary factor in the successful implementation of six sigma is to have","options":["(A) the necessary resources","(B) the support and leadership of top management","(C) explicit customer requirements","(D) a comprehensive training program"],"correctAnswer":"B","unit":"Unit I","chapter":"Chapter B.1","source":"ASQ sample exam","bokReference":"2 I.B.1 B"},{"id":2,"question":"Which of the following tools would be most appropriate for collecting data to study the symptoms of a problem?","options":["(A) Check sheet","(B) Flow diagram","(C) Force-field analysis","(D) Activity network diagram"],"correctAnswer":"A","unit":"Unit V","chapter":"Chapter B.4","source":"ASQ sample exam","bokReference":"3 V.B.4 A"},{"id":3,"question":"Positional, cyclical, and temporal variations are most commonly analyzed in","options":["(A) SPC charts","(B) multi-vari charts","(C) cause and effect diagrams","(D) run charts"],"correctAnswer":"B","unit":"Unit VI","chapter":"Chapter A.4","source":"ASQ sample exam","bokReference":"4 VI.A.4 B"},{"id":4,"question":"An important tool for risk management is","options":["(A) cost-benefit analysis","(B) stakeholder analysis","(C) FMEA","(D) Gantt chart"],"correctAnswer":"C","unit":"Unit IV","chapter":"Chapter A.3","source":"ASQ sample exam","bokReference":"5 IV.A.3 C"},{"id":5,"question":"To identify the customers who are most affected by quality problems and to track progress in resolving these problems, which type of Pareto chart should be used?","options":["(A) Basic","(B) Comparative","(C) Weighted","(D) Balanced"],"correctAnswer":"A","unit":"Unit VIII","chapter":"Chapter A.4","source":"ASQ sample exam","bokReference":"6 VIII.A.4 A"},{"id":6,"question":"On a project charter, which of the following would be the best problem statement?","options":["(A) Defects are being sent to the customer","(B) Audit scores have deteriorated","(C) Product shipped from the facility has a 2% defect rate","(D) Manufacturing equipment has not been maintained"],"correctAnswer":"A","unit":"Unit IV","chapter":"Chapter A.3","source":"ASQ sample exam","bokReference":"7 IV.A.3 A"},{"id":7,"question":"Prior to collecting baseline data, a six sigma team should","options":["(A) identify potential causes","(B) clarify the problem statement","(C) benchmark similar processes","(D) conduct a feasibility study"],"correctAnswer":"D","unit":"Unit V","chapter":"Chapter E.3","source":"ASQ sample exam","bokReference":"8 V.E.3 D"},{"id":8,"question":"Which of the following probability distributions would be used to calculate the number of defective parts in a large shipment?","options":["(A) Hypergeometric","(B) Binomial","(C) Poisson","(D) Normal"],"correctAnswer":"B","unit":"Unit VII","chapter":"Chapter B","source":"ASQ sample exam","bokReference":"9 VII.B. B"},{"id":9,"question":"For a x̄ and R chart, the sample size is 4. Which value would be used from the control chart constant table to calculate the control limit for the R chart?","options":["(A) D₂","(B) A₂","(C) D₄","(D) E₂"],"correctAnswer":"C","unit":"Unit VI","chapter":"Chapter B.5","source":"ASQ sample exam","bokReference":"10 VI.B.5 C"},{"id":10,"question":"Which of the following process improvement approaches should be used when implementing a proven solution to a known problem?","options":["(A) Kaizen","(B) DMAIC","(C) Lean","(D) Design for six sigma"],"correctAnswer":"B","unit":"Unit VIII","chapter":"Chapter A.1","source":"ASQ sample exam","bokReference":"11 VIII.A.1 B"},{"id":11,"question":"Which tool will help a team establish a consensus on the relative importance of problems to be solved?","options":["(A) Scatter plot","(B) Prioritization matrix","(C) Correlation analysis","(D) Stratification"],"correctAnswer":"B","unit":"Unit V","chapter":"Chapter F.1","source":"ASQ sample exam","bokReference":"12 V.F.1 B"},{"id":12,"question":"What is the most likely cause when a process exhibits an increasing trend?","options":["(A) Random variation","(B) Special cause","(C) Sampling error","(D) Measurement error"],"correctAnswer":"B","unit":"Unit VII","chapter":"Chapter D","source":"ASQ sample exam","bokReference":"13 VII.D. B"},{"id":13,"question":"The mode of a distribution is the value that","options":["(A) occurs most frequently","(B) divides the distribution in half","(C) is the arithmetic average","(D) divides the distribution into quartiles"],"correctAnswer":"A","unit":"Unit VII","chapter":"Chapter A.6","source":"ASQ sample exam","bokReference":"14 VII.A.6 A"},{"id":14,"question":"A six sigma project is completed when","options":["(A) the process capability reaches 6 sigma","(B) the improvements are implemented","(C) the control phase is completed","(D) the control plan is developed"],"correctAnswer":"A","unit":"Unit V","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"15 V.A.2 A"},{"id":15,"question":"Six sigma project teams use FMEA during which DMAIC phase?","options":["(A) Define","(B) Analyze","(C) Improve","(D) Control"],"correctAnswer":"B","unit":"Unit VIII","chapter":"Chapter B.1","source":"ASQ sample exam","bokReference":"16 VIII.B.1 B"},{"id":16,"question":"Which tool should be used to graphically display the connection between a critical quality characteristic and all potential causes?","options":["(A) Affinity diagram","(B) Cause and effect diagram","(C) Interrelationship diagram","(D) Tree diagram"],"correctAnswer":"B","unit":"Unit III","chapter":"Chapter A.4","source":"ASQ sample exam","bokReference":"17 III.A.4 B"},{"id":17,"question":"A team is getting ready to brainstorm. Which one of the following is a rule for brainstorming?","options":["(A) Encourage wild ideas","(B) Focus on the most important items","(C) Clarify ideas by asking questions","(D) Number ideas as they are generated"],"correctAnswer":"D","unit":"Unit VI","chapter":"Chapter C","source":"ASQ sample exam","bokReference":"18 VI.C. D"},{"id":18,"question":"Which statistical measurement describes how far values in a distribution are from the mean?","options":["(A) Median","(B) Mode","(C) Range","(D) Standard deviation"],"correctAnswer":"C","unit":"Unit VII","chapter":"Chapter E","source":"ASQ sample exam","bokReference":"19 VII.E. C"},{"id":19,"question":"A histogram would be used to","options":["(A) show the correlation between x and y","(B) understand the distribution of data","(C) track trends over time","(D) monitor process stability"],"correctAnswer":"A","unit":"Unit VI","chapter":"Chapter B.4","source":"ASQ sample exam","bokReference":"20 VI.B.4 A"},{"id":20,"question":"You roll a fair 6-sided die. What is the probability you will roll a 3 or a 4?","options":["(A) 0.17","(B) 0.33","(C) 0.50","(D) 0.67"],"correctAnswer":"C","unit":"Unit VI","chapter":"Chapter D.3","source":"ASQ sample exam","bokReference":"21 VI.D.3 C"},{"id":21,"question":"Which of the following probability distributions would be most suitable for modeling the time between arrivals at a service center?","options":["(A) Binomial","(B) Poisson","(C) Normal","(D) Exponential"],"correctAnswer":"D","unit":"Unit VII","chapter":"Chapter B","source":"ASQ sample exam","bokReference":"22 VII.B. D"},{"id":22,"question":"A company collects time-between-failure data for a piece of equipment. If the company wants to model the probability that the equipment will survive for at least 100 hours, which distribution should be used?","options":["(A) Weibull","(B) Normal","(C) Exponential","(D) Poisson"],"correctAnswer":"A","unit":"Unit VIII","chapter":"Chapter C.1","source":"ASQ sample exam","bokReference":"23 VIII.C.1 A"},{"id":23,"question":"In a design of experiments approach, which type of error increases when the number of factors in the experiment increases?","options":["(A) Type I error","(B) Type II error","(C) Random error","(D) Systematic error"],"correctAnswer":"D","unit":"Unit VII","chapter":"Chapter A.1","source":"ASQ sample exam","bokReference":"24 VII.A.1 D"},{"id":24,"question":"A six sigma team wants to investigate a process that has a single outcome measure and four potential causes. The team should use which experimental design approach?","options":["(A) One factor at a time","(B) Full factorial","(C) Fractional factorial","(D) Response surface methodology"],"correctAnswer":"C","unit":"Unit VIII","chapter":"Chapter A.4","source":"ASQ sample exam","bokReference":"25 VIII.A.4 C"},{"id":25,"question":"In the measure phase, a six sigma team is evaluating the measurement system for an outcome metric. The team should use which approach?","options":["(A) Analysis of variance","(B) Correlation analysis","(C) Measurement system analysis","(D) Regression analysis"],"correctAnswer":"D","unit":"Unit V","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"26 V.A.2 D"},{"id":26,"question":"In design of experiments, which technique is used to assign factor levels to experimental units?","options":["(A) Blocking","(B) Randomization","(C) Replication","(D) Stratification"],"correctAnswer":"B","unit":"Unit II","chapter":"Chapter E","source":"ASQ sample exam","bokReference":"27 II.E. B"},{"id":27,"question":"A project team wants to reduce the risk of implementing a solution. The team should use which of the following?","options":["(A) Stakeholder analysis","(B) Force field analysis","(C) Pilot testing","(D) Cost-benefit analysis"],"correctAnswer":"D","unit":"Unit III","chapter":"Chapter F","source":"ASQ sample exam","bokReference":"28 III.F. D"},{"id":28,"question":"An individuals control chart is preferred over an X̄ and R chart when","options":["(A) the subgroup size is greater than 10","(B) only one observation per subgroup is available","(C) the measurement data follows a normal distribution","(D) the process is expected to be stable"],"correctAnswer":"C","unit":"Unit VI","chapter":"Chapter B.1","source":"ASQ sample exam","bokReference":"29 VI.B.1 C"},{"id":29,"question":"A process capability study was performed on a stable process with specification limits of 15 ± 2. The process mean was 15.5 and the standard deviation was 0.4. What is the Cp?","options":["(A) 1.25","(B) 1.67","(C) 2.50","(D) 3.75"],"correctAnswer":"A","unit":"Unit VIII","chapter":"Chapter B.2","source":"ASQ sample exam","bokReference":"30 VIII.B.2 A"},{"id":30,"question":"Which of the following results indicates a process is not capable?","options":["(A) Cp = 1.33","(B) Cpk = 1.33","(C) Cp = 0.67","(D) Cpk = 1.67"],"correctAnswer":"D","unit":"Unit VI","chapter":"Chapter B.4","source":"ASQ sample exam","bokReference":"31 VI.B.4 D"},{"id":31,"question":"In a full factorial design with 3 factors at 2 levels each, how many experimental runs would be required?","options":["(A) 6","(B) 8","(C) 12","(D) 16"],"correctAnswer":"C","unit":"Unit VII","chapter":"Chapter B.5","source":"ASQ sample exam","bokReference":"32 VII.B.5 C"},{"id":32,"question":"Before launching a full-scale process improvement, a team should","options":["(A) develop the control plan","(B) pilot test the solution","(C) document the improved process","(D) train all process operators"],"correctAnswer":"B","unit":"Unit III","chapter":"Chapter F","source":"ASQ sample exam","bokReference":"33 III.F. B"},{"id":33,"question":"A process has a Cp = 1.5 and Cpk = 0.5. This indicates that the process","options":["(A) has low variation but is off center","(B) has high variation and is centered","(C) has low variation and is centered","(D) has high variation and is off center"],"correctAnswer":"A","unit":"Unit V","chapter":"Chapter A.3","source":"ASQ sample exam","bokReference":"34 V.A.3 A"},{"id":34,"question":"The statistical technique that best determines the functional relationship between a dependent variable and one or more independent variables is","options":["(A) ANOVA","(B) Chi-square","(C) Correlation","(D) Regression"],"correctAnswer":"D","unit":"Unit VII","chapter":"Chapter C","source":"ASQ sample exam","bokReference":"35 VII.C. D"},{"id":35,"question":"For attribute data, process capability is determined by calculating","options":["(A) Cp","(B) Cpk","(C) Yield","(D) Sigma level"],"correctAnswer":"A","unit":"Unit VI","chapter":"Chapter D.3","source":"ASQ sample exam","bokReference":"36 VI.D.3 A"},{"id":36,"question":"The best diagram to use to show the relationship between different departments in a process is a","options":["(A) cause and effect diagram","(B) flow chart","(C) scatter diagram","(D) deployment flow chart"],"correctAnswer":"A","unit":"Unit VII","chapter":"Chapter B","source":"ASQ sample exam","bokReference":"37 VII.B. A"},{"id":37,"question":"The central limit theorem states that as sample size increases, the sampling distribution of the mean approaches","options":["(A) a normal distribution","(B) a uniform distribution","(C) the population distribution","(D) a binomial distribution"],"correctAnswer":"D","unit":"Unit V","chapter":"Chapter B.4","source":"ASQ sample exam","bokReference":"38 V.B.4 D"},{"id":38,"question":"In a regression analysis, R² measures","options":["(A) the correlation between x and y","(B) the proportion of variation in y explained by x","(C) the strength of the linear relationship","(D) the slope of the regression line"],"correctAnswer":"A","unit":"Unit VI","chapter":"Chapter D.2","source":"ASQ sample exam","bokReference":"39 VI.D.2 A"},{"id":39,"question":"Which of the following statements about hypothesis testing is correct?","options":["(A) The null hypothesis is what we want to prove","(B) A Type I error occurs when we accept a false null hypothesis","(C) The p-value represents the probability that the null hypothesis is true","(D) A lower alpha level makes it harder to reject the null hypothesis"],"correctAnswer":"C","unit":"Unit V","chapter":"Chapter E.1","source":"ASQ sample exam","bokReference":"40 V.E.1 C"},{"id":40,"question":"A team leader wants to understand what motivates team members. The team leader should begin by","options":["(A) conducting individual interviews","(B) administering a team survey","(C) observing team interactions","(D) reviewing team performance data"],"correctAnswer":"C","unit":"Unit I","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"41 I.A.2 C"},{"id":41,"question":"A project requires significant changes to an existing process. To minimize resistance to change, the project team should","options":["(A) implement changes gradually","(B) involve stakeholders in planning","(C) communicate benefits clearly","(D) provide training and support"],"correctAnswer":"B","unit":"Unit IV","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"42 IV.A.2 B"},{"id":42,"question":"Value stream mapping is a tool used primarily to","options":["(A) map customer requirements","(B) identify sources of waste","(C) analyze measurement systems","(D) prioritize improvement opportunities"],"correctAnswer":"C","unit":"Unit V","chapter":"Chapter C.2","source":"ASQ sample exam","bokReference":"44 V.C.2 C"},{"id":43,"question":"Which of the following is a key component of a project charter?","options":["(A) Detailed implementation plan","(B) Final solution recommendations","(C) Complete cost-benefit analysis","(D) Problem statement and scope"],"correctAnswer":"D","unit":"Unit VII","chapter":"Chapter A.5","source":"ASQ sample exam","bokReference":"45 VII.A.5 D"},{"id":44,"question":"The most effective way to sustain improvements from a six sigma project is to","options":["(A) monitor key metrics regularly","(B) provide ongoing team training","(C) document all process changes","(D) implement standardized procedures"],"correctAnswer":"A","unit":"Unit VI","chapter":"Chapter C","source":"ASQ sample exam","bokReference":"46 VI.C. A"},{"id":45,"question":"When should a team use brainstorming?","options":["(A) To evaluate potential solutions","(B) To prioritize improvement opportunities","(C) To generate a list of potential causes","(D) To select the best solution"],"correctAnswer":"C","unit":"Unit IV","chapter":"Chapter A.1","source":"ASQ sample exam","bokReference":"47 IV.A.1 C"},{"id":46,"question":"A confidence interval for a population mean with a 95% confidence level means that","options":["(A) 95% of sample means fall within the interval","(B) there is a 95% chance the interval contains the population mean","(C) 95% of individual values fall within the interval","(D) the sample mean has a 95% chance of being correct"],"correctAnswer":"C","unit":"Unit VI","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"48 VI.A.2 C"},{"id":47,"question":"Quality function deployment (QFD) is primarily used to","options":["(A) control process variation","(B) translate customer requirements into design requirements","(C) monitor process performance","(D) analyze measurement systems"],"correctAnswer":"B","unit":"Unit V","chapter":"Chapter F.7","source":"ASQ sample exam","bokReference":"49 V.F.7 B"},{"id":48,"question":"To determine if there are differences in means among three or more groups, which statistical test should be used?","options":["(A) t-test","(B) Chi-square test","(C) ANOVA","(D) Regression analysis"],"correctAnswer":"D","unit":"Unit IV","chapter":"Chapter A.2","source":"ASQ sample exam","bokReference":"50 IV.A.2 D"},{"id":49,"question":"A process is considered to be in statistical control when","options":["(A) all data points fall within specification limits","(B) the process capability index is greater than 1.33","(C) variation is due only to common causes","(D) the process meets customer requirements"],"correctAnswer":"C","unit":"Unit VI","chapter":"Chapter B.8","source":"ASQ sample exam","bokReference":"52 VI.B.8 C"}];
+
+        const LSSBlackBeltQuiz = () => {
+            const [questions] = React.useState(QUESTIONS_DATA);
+            const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+            const [selectedAnswer, setSelectedAnswer] = React.useState('');
+            const [userAnswers, setUserAnswers] = React.useState({});
+            const [showResults, setShowResults] = React.useState(false);
+            const [shuffledQuestions, setShuffledQuestions] = React.useState([]);
+            const [useShuffled, setUseShuffled] = React.useState(false);
+
+            // Initialize shuffled questions
+            React.useEffect(() => {
+                const shuffled = [...questions].sort(() => Math.random() - 0.5);
+                setShuffledQuestions(shuffled);
+            }, [questions]);
+
+            const activeQuestions = useShuffled ? shuffledQuestions : questions;
+            const currentQuestion = activeQuestions[currentQuestionIndex];
+
+            const handleAnswerSelect = (answer) => {
+                setSelectedAnswer(answer);
+            };
+
+            const handleNext = () => {
+                if (selectedAnswer) {
+                    setUserAnswers(prev => ({
+                        ...prev,
+                        [currentQuestionIndex]: selectedAnswer
+                    }));
+                }
+
+                if (currentQuestionIndex < activeQuestions.length - 1) {
+                    setCurrentQuestionIndex(prev => prev + 1);
+                    setSelectedAnswer(userAnswers[currentQuestionIndex + 1] || '');
+                } else {
+                    setShowResults(true);
+                }
+            };
+
+            const handlePrevious = () => {
+                if (currentQuestionIndex > 0) {
+                    setCurrentQuestionIndex(prev => prev - 1);
+                    setSelectedAnswer(userAnswers[currentQuestionIndex - 1] || '');
+                }
+            };
+
+            const resetQuiz = () => {
+                setCurrentQuestionIndex(0);
+                setSelectedAnswer('');
+                setUserAnswers({});
+                setShowResults(false);
+                if (useShuffled) {
+                    const shuffled = [...questions].sort(() => Math.random() - 0.5);
+                    setShuffledQuestions(shuffled);
+                }
+            };
+
+            const toggleShuffle = () => {
+                setUseShuffled(!useShuffled);
+                setCurrentQuestionIndex(0);
+                setSelectedAnswer('');
+                setUserAnswers({});
+                setShowResults(false);
+            };
+
+            const calculateResults = () => {
+                const totalQuestions = activeQuestions.length;
+                const answeredQuestions = Object.keys(userAnswers).length;
+                const correctAnswers = Object.entries(userAnswers).filter(
+                    ([index, answer]) => answer === activeQuestions[parseInt(index)].correctAnswer
+                ).length;
+
+                // Calculate results by unit/chapter
+                const unitChapterResults = {};
+                Object.entries(userAnswers).forEach(([index, answer]) => {
+                    const question = activeQuestions[parseInt(index)];
+                    const key = `${question.unit} - ${question.chapter}`;
+                    
+                    if (!unitChapterResults[key]) {
+                        unitChapterResults[key] = { correct: 0, total: 0 };
+                    }
+                    
+                    unitChapterResults[key].total++;
+                    if (answer === question.correctAnswer) {
+                        unitChapterResults[key].correct++;
+                    }
+                });
+
+                return {
+                    totalQuestions,
+                    answeredQuestions,
+                    correctAnswers,
+                    percentage: answeredQuestions > 0 ? Math.round((correctAnswers / answeredQuestions) * 100) : 0,
+                    unitChapterResults
+                };
+            };
+
+            if (showResults) {
+                const results = calculateResults();
+                
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-4">
+                        <div className="max-w-4xl mx-auto">
+                            <div className="bg-white rounded-lg shadow-lg p-8">
+                                <div className="text-center mb-8">
+                                    <div className="h-16 w-16 text-green-500 mx-auto mb-4">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <h1 className="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h1>
+                                    <p className="text-xl text-gray-600">
+                                        You scored {results.correctAnswers} out of {results.answeredQuestions} questions
+                                    </p>
+                                    <div className="text-4xl font-bold text-green-600 mt-2">
+                                        {results.percentage}%
+                                    </div>
+                                </div>
+
+                                <div className="mb-8">
+                                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">Performance by Unit & Chapter</h2>
+                                    <div className="grid gap-4 max-h-96 overflow-y-auto">
+                                        {Object.entries(results.unitChapterResults)
+                                            .sort(([a], [b]) => a.localeCompare(b))
+                                            .map(([unitChapter, data]) => {
+                                                const percentage = Math.round((data.correct / data.total) * 100);
+                                                return (
+                                                    <div key={unitChapter} className="bg-gray-50 rounded-lg p-4">
+                                                        <div className="flex justify-between items-center mb-2">
+                                                            <span className="font-medium text-gray-800">{unitChapter}</span>
+                                                            <span className="text-sm text-gray-600">
+                                                                {data.correct}/{data.total} ({percentage}%)
+                                                            </span>
+                                                        </div>
+                                                        <div className="w-full bg-gray-200 rounded-full h-2">
+                                                            <div 
+                                                                className={`h-2 rounded-full ${
+                                                                    percentage >= 80 ? 'bg-green-500' : 
+                                                                    percentage >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                                                                }`}
+                                                                style={{ width: `${percentage}%` }}
+                                                            ></div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                    </div>
+                                </div>
+
+                                <div className="text-center">
+                                    <button
+                                        onClick={resetQuiz}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center gap-2 transition-colors"
+                                    >
+                                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                        </svg>
+                                        Take Quiz Again
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (!currentQuestion) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                        <div className="text-center">
+                            <p className="text-lg text-gray-700">No questions available.</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+                    <div className="max-w-4xl mx-auto">
+                        {/* Header */}
+                        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <h1 className="text-2xl font-bold text-gray-800">LSS Black Belt Exam Quiz</h1>
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={toggleShuffle}
+                                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                            useShuffled 
+                                                ? 'bg-purple-100 text-purple-800' 
+                                                : 'bg-gray-100 text-gray-600'
+                                        }`}
+                                    >
+                                        {useShuffled ? 'Shuffled' : 'Sequential'}
+                                    </button>
+                                    <div className="text-sm text-gray-600">
+                                        Question {currentQuestionIndex + 1} of {activeQuestions.length}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Progress bar */}
+                            <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+                                <div 
+                                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                                    style={{ width: `${((currentQuestionIndex + 1) / activeQuestions.length) * 100}%` }}
+                                ></div>
+                            </div>
+
+                            {/* Unit and Chapter Info */}
+                            <div className="flex gap-4 text-sm flex-wrap">
+                                <div className="flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                    {currentQuestion.unit}
+                                </div>
+                                <div className="flex items-center gap-1 bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                    </svg>
+                                    {currentQuestion.chapter}
+                                </div>
+                                <div className="text-gray-500 px-2 py-1 text-xs">
+                                    Source: {currentQuestion.source}
+                                </div>
+                                <div className="text-gray-400 px-2 py-1 text-xs">
+                                    BOK: {currentQuestion.bokReference}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Question */}
+                        <div className="bg-white rounded-lg shadow-lg p-8">
+                            <h2 className="text-xl font-semibold text-gray-800 mb-6">
+                                {currentQuestion.question}
+                            </h2>
+
+                            {/* Answer Options */}
+                            <div className="space-y-3 mb-8">
+                                {currentQuestion.options.map((option, index) => {
+                                    const letter = option.match(/^\([A-D]\)/)?.[0] || `(${String.fromCharCode(65 + index)})`;
+                                    const optionText = option.replace(/^\([A-D]\)\s*/, '');
+                                    
+                                    return (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleAnswerSelect(letter.replace(/[()]/g, ''))}
+                                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                                                selectedAnswer === letter.replace(/[()]/g, '')
+                                                    ? 'border-blue-500 bg-blue-50'
+                                                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            <div className="flex items-start gap-3">
+                                                <span className="font-medium text-blue-600 min-w-6">
+                                                    {letter}
+                                                </span>
+                                                <span className="text-gray-700">{optionText}</span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Navigation */}
+                            <div className="flex justify-between items-center">
+                                <button
+                                    onClick={handlePrevious}
+                                    disabled={currentQuestionIndex === 0}
+                                    className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                    Previous
+                                </button>
+
+                                <div className="text-sm text-gray-500">
+                                    {Object.keys(userAnswers).length} of {activeQuestions.length} answered
+                                </div>
+
+                                <button
+                                    onClick={handleNext}
+                                    disabled={!selectedAnswer}
+                                    className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                                >
+                                    {currentQuestionIndex === activeQuestions.length - 1 ? 'Finish Quiz' : 'Next'}
+                                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<LSSBlackBeltQuiz />, document.getElementById('root'));
+    </script>
+</body>
+</html>
